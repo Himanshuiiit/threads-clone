@@ -37,5 +37,9 @@
     "typescript": "5.1.6",
     "uploadthing": "^5.3.3",
     "zod": "^3.22.1"
+  },
+  "devDependencies": {
+    "eslint": "8.49.0",
+    "eslint-config-next": "13.4.19"
   }
 }

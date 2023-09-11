@@ -88,8 +88,11 @@ export async function createThread({
     }
 
     revalidatePath(path);
-  } catch (error: any) {
-    throw new Error(`Failed to create thread: ${error.message}`);
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(`Failed to create thread: ${error.message}`);
+    }
+    throw new Error(`Failed to create thread: ${error}`);
   }
 }
 

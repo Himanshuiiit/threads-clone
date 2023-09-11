@@ -1,7 +1,5 @@
-const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+/** @type {import('next').NextConfig} */
+const config = {
   experimental: {
     serverActions: true,
     serverComponentsExternalPackages: ["mongoose"],
@@ -28,4 +26,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default config;

@@ -10,14 +10,41 @@ interface Props {
 }
 
 const ThreadsTab = async ({ currentUserId, accountId, accountType }: Props) => {
-  let result: any;
-  if (accountType === 'Community') result = await fetchCommunityPosts(accountId);
+  let result: {
+    threads: {
+      _id: string;
+      parentId: string | null;
+      text: string;
+      createdAt: string;
+      author: {
+        name: string;
+        id: string;
+        image: string;
+      };
+      children: {
+        author: {
+          image: string;
+        };
+      }[];
+
+      community: {
+        id: string;
+        name: string;
+        image: string;
+      } | null;
+    }[];
+    name: string;
+    id: string;
+    image: string;
+  } | null = null;
+
+  if (accountType === "Community")
+    result = await fetchCommunityPosts(accountId);
   else result = await fetchUserPosts(currentUserId);
-  
   if (!result) redirect("/");
   return (
     <section className="mt-9 flex flex-col gap-10">
-      {result.threads.map((thread: any) => (
+      {result.threads?.map((thread) => (
         <ThreadCard
           key={thread._id}
           id={thread._id}
@@ -26,12 +53,16 @@ const ThreadsTab = async ({ currentUserId, accountId, accountType }: Props) => {
           content={thread.text}
           community={thread.community}
           author={
-            accountType === "User" ? 
-            {name : result.name, id : result.id, image : result.image} :
-            {name: thread.author.name, id: thread.author.id, image: thread.author.image}
-        }
-          createdAt={thread.createdAt}
-          comments={thread.children}
+            accountType === "User"
+              ? { name: result?.name, id: result?.id, image: result?.image }
+              : {
+                  name: thread?.author.name,
+                  id: thread?.author.id,
+                  image: thread?.author.image,
+                }
+          }
+          createdAt={thread?.createdAt}
+          comments={thread?.children}
         />
       ))}
     </section>

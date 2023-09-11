@@ -14,7 +14,6 @@ import { Input } from "@/components/ui/input";
 import * as z from "zod";
 import { usePathname, useRouter } from "next/navigation";
 import { CommentValidation } from "@/lib/validations/thread";
-import { Textarea } from "../ui/textarea";
 import Image from "next/image";
 import { addCommentToThread } from "@/lib/actions/thread.actions";
 

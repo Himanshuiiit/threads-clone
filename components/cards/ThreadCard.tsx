@@ -14,9 +14,9 @@ interface Props {
     image: string;
   } | null;
   author: {
-    name: string;
-    image: string;
-    id: string;
+    name: string | undefined;
+    id: string | undefined;
+    image: string | undefined;
   };
   createdAt: string;
   comments: {
@@ -48,7 +48,7 @@ async function ThreadCard({
           <div className="flex flex-col items-center">
             <Link href={`/profile/${author.id}`} className="relative h-11 w-11">
               <Image
-                src={author.image}
+                src={author?.image!}
                 alt="profile"
                 width={44}
                 height={44}
@@ -108,23 +108,23 @@ async function ThreadCard({
           </div>
         </div>
       </div>
-        {!isComment && community && (
-          <Link
-            href={`/communities/${community.id}`}
-            className="mt-5 flex items-center"
-          >
-            <p className="text-subtle-medium text-gray-1">
-              {formatDateString(createdAt)} - {community.name} Community
-            </p>
-            <Image 
-              src={community.image}
-              alt={community.name}
-              width={14}
-              height={14}
-              className="ml-1 rounded-full object-cover"
-            />
-          </Link>
-        )}
+      {!isComment && community && (
+        <Link
+          href={`/communities/${community.id}`}
+          className="mt-5 flex items-center"
+        >
+          <p className="text-subtle-medium text-gray-1">
+            {formatDateString(createdAt)} - {community.name} Community
+          </p>
+          <Image
+            src={community.image}
+            alt={community.name}
+            width={14}
+            height={14}
+            className="ml-1 rounded-full object-cover"
+          />
+        </Link>
+      )}
     </article>
   );
 }
