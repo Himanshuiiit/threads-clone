@@ -55,8 +55,8 @@ export const POST = async (request: NextRequest) => {
       JSON.stringify(payload),
       heads as IncomingHttpHeaders & WebhookRequiredHeaders
     ) as Event;
-  } catch (err : any) {
-    return NextResponse.json({ message: err }, { status: 400 });
+  } catch (err) {
+    return NextResponse.json({ message: "Unkonwn error" }, { status: 400 });
   }
 
   const eventType: EventType = evnt?.type!;
